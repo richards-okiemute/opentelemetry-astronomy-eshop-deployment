@@ -18,7 +18,7 @@ This repository contains the OpenTelemetry Astronomy Shop, a microservice-based
 distributed system intended to illustrate the implementation of OpenTelemetry in
 a near real-world environment.
 
-![Architecture Diagram](https://drive.google.com/file/d/1_YmsLBGJv2VxtuIRjXXktbA6OqzJfhTg/view?usp=drive_link)
+![Architecture Diagram](https://drive.google.com/uc?export=view&id=1_YmsLBGJv2VxtuIRjXXktbA6OqzJfhTg)
 
 Our goals are threefold:
 
