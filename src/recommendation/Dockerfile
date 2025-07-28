@@ -1,16 +1,33 @@
-FROM python:3.12-slim-bookworm AS base
+#------Build Stage--------#
+
+FROM python:3.12-slim-bookworm AS builder
+
 
 WORKDIR /usr/src/app
 
+
 COPY requirements.txt ./
 
-RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
+RUN pip install --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-RUN opentelemetry-bootstrap -a install 
 
-ENV RECOMMENDATION_PORT 1010
+#------Release Stage--------#
 
-ENTRYPOINT ["python", "recommendation_server.py"]
+FROM gcr.io/distroless/python3:nonroot
+
+# Copy app
+COPY --from=builder /usr/src/app/recommendation_server.py /usr/src/app
+
+# Copy installed Python packages
+COPY --from=builder /usr/local/lib/python3.12 /usr/local/lib/python3.12
+
+
+WORKDIR /usr/src/app
+
+USER nonroot
+
+ENTRYPOINT [ "python3", "recommendation_server.py" ]
+
