@@ -28,7 +28,7 @@ RUN chmod +x ./gradlew
 RUN ./gradlew installDist -PprotoSourceDir=./proto
 
 # ---- Release Stage ----
-FROM eclipse-temurin:21-jre
+FROM eclipse-temurin:21-jre-alpine
 
 # Create a dedicated non-root group and user
 RUN addgroup --system java && adduser --system java-app --ingroup java
