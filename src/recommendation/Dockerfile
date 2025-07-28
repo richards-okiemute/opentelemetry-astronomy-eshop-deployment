@@ -21,7 +21,7 @@ FROM python:3.12-slim-bookworm
 WORKDIR /usr/src/app
 
 # Copy everything from builder
-COPY --from=builder /usr/src/app /usr/src/app
+COPY . .
 
 # Run as non-root
 
