@@ -28,10 +28,7 @@ RUN chmod +x ./gradlew
 RUN ./gradlew installDist -PprotoSourceDir=./proto
 
 # ---- Release Stage ----
-FROM eclipse-temurin:21-jre-alpine
-
-# Create a dedicated non-root group and user
-RUN addgroup --system java && adduser --system java-app --ingroup java
+FROM gcr.io/distroless/java21-debian12:nonroot
 
 # Set working directory
 WORKDIR /usr/src/app/
@@ -43,7 +40,7 @@ COPY --from=build /usr/src/app/ .
 RUN chown -R java-app:java /usr/src/app
 
 # Switch to non-root user for security
-USER java-app
+USER nonroot
 
 # Environment variables
 ENV AD_PORT=8080
