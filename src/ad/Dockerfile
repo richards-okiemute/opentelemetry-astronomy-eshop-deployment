@@ -36,9 +36,6 @@ WORKDIR /usr/src/app/
 # Copy build artifacts from the build stage
 COPY --from=build /usr/src/app/ .
 
-# Change ownership of files so the non-root user can access them
-RUN chown -R java-app:java /usr/src/app
-
 # Switch to non-root user for security
 USER nonroot
 
