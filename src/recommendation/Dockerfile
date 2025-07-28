@@ -16,18 +16,16 @@ COPY . .
 
 #------Release Stage--------#
 
-FROM gcr.io/distroless/python3:nonroot
-
-# Copy app
-COPY --from=builder /usr/src/app/recommendation_server.py /usr/src/app/
-
-# Copy installed Python packages
-COPY --from=builder /usr/local/lib/python3.12 /usr/local/lib/python3.12
-
+FROM python:3.12-slim-bookworm
 
 WORKDIR /usr/src/app
 
-USER nonroot
+# Copy everything from builder
+COPY --from=builder /usr/src/app /usr/src/app
 
-ENTRYPOINT [ "python3", "recommendation_server.py" ]
+# Run as non-root
+
+USER 1000:1000  
+
+ENTRYPOINT ["python", "recommendation_server.py"]
 
