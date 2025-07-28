@@ -19,7 +19,7 @@ COPY . .
 FROM gcr.io/distroless/python3:nonroot
 
 # Copy app
-COPY --from=builder /usr/src/app/recommendation_server.py /usr/src/app
+COPY --from=builder /usr/src/app/recommendation_server.py /usr/src/app/
 
 # Copy installed Python packages
 COPY --from=builder /usr/local/lib/python3.12 /usr/local/lib/python3.12
